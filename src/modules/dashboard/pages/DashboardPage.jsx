@@ -1,61 +1,59 @@
 import React, { useEffect, useState } from "react";
 import leaveData from "../.././../leaveData";
+import LeaveFilter from "../components/LeaveFilter";
 // import global from "../../../Global.module.css";
 
 const DashboardPage = () => {
-    const [filter, setFilter] = useState('All');
-    // make this Reducer 
-    const [vlBalance, setVlBalance] = useState(15);
-    const [slBalance, setSlBalance] = useState(15);
-    const [elBalance, setElBalance] = useState(3);
-  
-    useEffect(() => {
-      const updateBalances = () => {
-        let vlCount = 15;
-        let slCount = 15;
-        let elCount = 3;
-        leaveData.forEach((leave) => {
-          if (leave.leaveType === 'VL') {
-            vlCount--;
-          } else if (leave.leaveType === 'SL') {
-            slCount--;
-          } else if (leave.leaveType === 'EL') {
-            elCount--;
-          }
-        });
-        setVlBalance(vlCount);
-        setSlBalance(slCount);
-        setElBalance(elCount);
-      };
-  
-      updateBalances();
-    }, []);
-  
-    const handleFilterChange = (newFilter) => {
-      setFilter(newFilter);
+  const [filter, setFilter] = useState("All");
+  // make this Reducer
+  const [vlBalance, setVlBalance] = useState(15);
+  const [slBalance, setSlBalance] = useState(15);
+  const [elBalance, setElBalance] = useState(3);
+
+  useEffect(() => {
+    const updateBalances = () => {
+      let vlCount = 15;
+      let slCount = 15;
+      let elCount = 3;
+      leaveData.forEach((leave) => {
+        if (leave.leaveType === "VL") {
+          vlCount--;
+        } else if (leave.leaveType === "SL") {
+          slCount--;
+        } else if (leave.leaveType === "EL") {
+          elCount--;
+        }
+      });
+      setVlBalance(vlCount);
+      setSlBalance(slCount);
+      setElBalance(elCount);
     };
-  
-    const filteredLeaveData = leaveData.filter((leave) => {
-      if (filter === 'All') {
-        return true;
-      } else {
-        return leave.status === filter;
-      }
-    });
+
+    updateBalances();
+  }, []);
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+  };
+
+  const filteredLeaveData = leaveData.filter((leave) => {
+    if (filter === "All") {
+      return true;
+    } else {
+      return leave.status === filter;
+    }
+  });
 
   return (
     <div>
-        <h1 className={`row`}>Dashboard</h1>
+      <h1 className={`row`}>Dashboard</h1>
       <div>
         {/* own component */}
         <p>
           vl - {vlBalance} sl - {slBalance} el - {elBalance}
         </p>
         {/* own component */}
-        <button onClick={() => handleFilterChange("All")}>All</button>
-        <button onClick={() => handleFilterChange("Pending")}>Pending</button>
-        <button onClick={() => handleFilterChange("Approved")}>Approved</button>
-        <button onClick={() => handleFilterChange("Reject")}>Reject</button>
+        <LeaveFilter handleFilterChange={handleFilterChange} />
       </div>
       <table>
         <thead>
@@ -67,7 +65,7 @@ const DashboardPage = () => {
           </tr>
         </thead>
         <tbody>
-            {/* own component */}
+          {/* own component */}
           {filteredLeaveData.map((leave, index) => (
             <tr key={index}>
               <td>{leave.ticketNumber}</td>
