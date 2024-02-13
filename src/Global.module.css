@@ -1,0 +1,11 @@
+.margin {
+  margin: 20px 0;
+  padding: 0 40px;
+}
+
+.centerItems {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
