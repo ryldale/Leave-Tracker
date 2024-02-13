@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import leaveData from "../.././../leaveData";
 import LeaveFilter from "../components/LeaveFilter";
-// import global from "../../../Global.module.css";
+import LeaveList from "../components/LeaveList";
+import global from "../../../Global.module.css";
 
 const DashboardPage = () => {
   const [filter, setFilter] = useState("All");
@@ -45,8 +46,8 @@ const DashboardPage = () => {
   });
 
   return (
-    <div>
-      <h1 className={`row`}>Dashboard</h1>
+    <div className={`${global.margin}`}>
+      <h1>Dashboard</h1>
       <div>
         {/* own component */}
         <p>
@@ -55,27 +56,10 @@ const DashboardPage = () => {
         {/* own component */}
         <LeaveFilter handleFilterChange={handleFilterChange} />
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Ticket Number</th>
-            <th>Leave Date</th>
-            <th>Leave Type</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
+
           {/* own component */}
-          {filteredLeaveData.map((leave, index) => (
-            <tr key={index}>
-              <td>{leave.ticketNumber}</td>
-              <td>{leave.leaveDate}</td>
-              <td>{leave.leaveType}</td>
-              <td>{leave.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <LeaveList filteredLeaveData={filteredLeaveData}/>
+
     </div>
   );
 };
